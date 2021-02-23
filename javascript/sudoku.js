@@ -92,26 +92,27 @@ const doneOrNot = board => {
 /*
   The following is a MUCH better solution than mine.
 
-  function doneOrNot(rows){
-
-    var columns = [],
+  const doneOrNot = board => {
+    let columns = [],
       blocks = [];
 
-    for (var i = 0; i < 9; i++) {
+    // Looping through the numbers 1 -> 9 twice and using those numbers as
+    // coordinates for determining the values of columns and squares.
+    for (i = 0; i < 9; i++) {
       columns[i] = [];
 
-      for (var j = 0; j < 9; j++) {
-        var k = Math.floor(i / 3) + Math.floor(j / 3) * 3;
+      for (j = 0; j < 9; j++) {
+        let k = Math.floor(i / 3) + (Math.floor(j / 3) * 3);
         blocks[k] = blocks[k] || [];
 
-        blocks[k].push(rows[i][j]);
-        columns[i].push(rows[j][i]);
+        blocks[k].push(board[i][j]);
+        columns[i].push(board[j][i]);
       }
     }
 
-    var is_valid_row = (row) => row.slice(0).sort((a, b) => a - b).join('') == '123456789';
+    const is_valid_row = (row) => row.slice(0).sort((a, b) => a - b).join('') == '123456789';
 
-    var is_valid = rows.every(is_valid_row)
+    let is_valid = board.every(is_valid_row)
       && columns.every(is_valid_row)
       && blocks.every(is_valid_row);
 
